@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p v-bind:id='idA' :style='styleB'> 아이디 바인딩</p>
+        <p v-bind:class='classA'>클래스 바인딩</p>
+        <p v-bind:style='styleA'>스타일 바인딩</p>
+    </div>
+
+    <!-- 자바 스크립트 표현식 
+    : {{}} 안에 자바스크립트식 표현이 가능하나, 아래와 같이 사용할 수 없다.
+    - JS의 선언문과 분기구문은 사용할 수 없음: 삼항연산자는 사용가능 
+    - 복잡한 연산은 인스턴스 안에서 처리하고 화면에는 간단한 연산만 사용가능
+    -->
+    <div id="app2">
+        <p>{{message}}</p>
+
+        
+        <p>{{message + '!!!'}}</p>
+        <!-- !) 아래는 비추, app3의 reverseMsg 참고 -->
+        <p>{{message.split('').reverse().join('') }}</p>
+        <p>{{message.split('')}}</p>
+    </div>
+
+    <hr>
+    <div id="app3">
+        <p>{{msg}}</p>
+        <p>{{reverseMsg}}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                idA: 'pIDBind',
+                classA: 'container',
+                styleA: 'color:blue',
+                styleB: 'color:red'
+            }
+        });
+
+        new Vue({
+            el: '#app2',
+            data: {
+                message: 'Hello Vue.js!'
+            }
+        });
+
+        new Vue({
+            el: '#app3',
+            data: {
+                msg: 'Hello Vue! Hell! World!'
+            },
+            computed: { // 캐싱(Cashing)
+                reverseMsg: function () {
+                    return this.msg.split('').reverse().join('')  // this Vue인스턴스의 msg
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="getData">프레임 워크 목록 가져오기</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 액시오스 라이브러리 cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // Axios 요청 옵션 정의
+        // axios({
+        //     method:'get',
+        //     url:'url 주소'
+        // });
+
+        // Axios Get 요청
+        // axios.get('url 주소').then(통신 성공 후 로직).catch(통신 실패);
+
+        // Axios Post 요청
+        // axios.post('url 주소').then(통신 성공 후 로직).catch(통신 실패);
+
+        // var url = 'https://dog.ceo/api/breeds/list/all';
+        new Vue({
+            el:'#app',
+            methods:{
+                getData:function(){
+                     axios.get('https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json')
+                     .then(function(response){
+                         console.log(response.data);
+                        })
+                    .catch(function(error){
+                        console.log(error)
+                    });
+                },
+            }
+        });
+    </script>
+</body>
+</html>

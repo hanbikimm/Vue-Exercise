@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 인스턴스 옵션</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{hello}}</h1>
+        <p>My Num : {{num}}</p>
+        <p>My double Num : {{doubleNum}} </p>
+        <button v-on:click="increaseNum"> click me!</button>
+        <my-component></my-component> 
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var MyComponent ={
+            template:'<h3>This is MyComponent Area</h3>'
+        }
+
+
+        new Vue({
+            // el : html dom 요소로 정의
+            el:'#app', 
+            // data : vue 인스턴스에서 사용하는 데이터를 정의
+            data:{
+                hello:'Hello! Vue.js!!!',
+                num :10
+            },
+            // components : 해당 vue 인스턴스에 등록할 하위 컴포넌트를 정의
+            components:{
+                'my-component': MyComponent
+            },
+            // template: vue 유효범위에 바인딩할 html 태그 및 vue 데이터 바인딩 속성
+            template: '<div><h1>{{hello}}</h1> My double Num : {{doubleNum}}  <MyComponent></MyComponent> </div>',
+            // computed: data의 값에 매달아서 값이 변경될 때 자동으로 계산할 함수들을 정의(캐싱) 
+            computed:{
+                doubleNum: function(){
+                    return this.num *2;
+                }
+            },
+            // methods : 화면 로직 제어와 관련된 메서드를 정의, 호출될 때 마다 실행
+            methods:{
+                increaseNum: function(){
+                    this.num++;
+                }
+            },
+            // watch : 특정 데이터 속성에 매달아서 감시하다가, 값이 변경될 때 반응.
+            watch:{
+                hello:function(){
+                    alert('hello값이 변경되었습니다. : ' + this.hello);
+                }
+            }
+        })
+
+  
+    </script>
+</body>
+</html>

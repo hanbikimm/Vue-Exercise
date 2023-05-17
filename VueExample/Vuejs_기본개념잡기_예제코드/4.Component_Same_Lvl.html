@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <component1 v-on:component1emited="RootGetCom1Method"></component1>
+        <component2 v-bind:com2pros='receiveData'></component2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var component1 = {
+            data: function () {
+                return {
+                    com1Data: 'a'
+                }
+            },
+            template: '<button @click="UptoParents">component1 버튼</button>',
+            methods: {
+                UptoParents: function () {
+                    var com1Message = 'Component1에서 전달하는 값은 ' + this.com1Data + '입니다.';
+                    this.$emit('component1emited',  this.com1Data, com1Message);
+                }
+            }
+        };
+
+        var component2 = {
+            props: ['com2pros'],
+            template: `<span>Component2의 데이터 : {{com2pros}} </span>`,
+        }
+
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    receiveData: '',
+                    receiveMsg: ''
+                }
+            },
+            methods: {
+                RootGetCom1Method: function (data, message) {
+                    this.receiveData = data;
+                    this.receiveMsg = message;
+                    console.log('-----------Component1------------');
+                    console.log('Get:', this.receiveData);
+                    console.log( this.receiveMsg);
+                    console.log('--------------------------------');
+                }
+            },
+            components: {
+                component1: component1,
+                component2: component2
+            },
+        });
+    </script>
+</body>
+
+</html>

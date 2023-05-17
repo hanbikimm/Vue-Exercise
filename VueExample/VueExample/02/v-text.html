@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>v-text</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="simple">
+        <h2 v-text="message"></h2>
+    </div>
+    <script type="text/javascript">
+        var model = {
+            message : '<i>HTML 태그는 어찌 되나?</i>'
+        };
+
+        var simple = new Vue({
+            el : '#simple',
+            data : model
+        });
+    </script>
+</body>
+</html>

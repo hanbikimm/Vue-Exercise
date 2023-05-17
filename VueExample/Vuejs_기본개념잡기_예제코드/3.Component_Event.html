@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do it Vue.js - Component</title>
+</head>
+
+<body>
+     <div id="app">
+        <!-- Event 수신 기본 형식  : <하위 컴포넌트 이름 v-on:하위에서 전달한 이벤트 명="상위 컴포넌트의 메서드명"></하위 컴포넌트 이름> -->
+         <child-component v-on:company_click="printText"></child-component>
+         <!-- 오른쪽에서 왼쪽 :해당 상위 컴포넌트 관점에서 하위 속성을 Searching한다고 가정 -->
+     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('child-component',{
+            template:`<button v-on:click="$emit('company_click',[childData,'가혜'])"> show Message </button>`,
+            data:function() {
+                return{
+                    childData : 100
+                }
+            },
+            methods: {
+               
+            }
+        });
+
+        // 뷰 인스턴스 생성
+        new Vue({
+           el:'#app',
+           data:{
+               message:'Hello! Vue.js!!'
+           } ,
+           methods:{
+            printText(data,data2){
+                alert('child-component의 데이터 : ' + data +","+data2);
+                console.log(data,data2);
+            }
+           }
+        });
+    </script>
+</body>
+
+</html>

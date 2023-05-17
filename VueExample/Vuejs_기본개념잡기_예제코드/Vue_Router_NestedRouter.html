@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 라우팅에 따라 표현될 컴포넌트 영역 -->
+       <!-- <a href="http://www.google.com">google</a> -->
+        <router-link to='/user'>user 페이지</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+        // 01. 컴포넌트 정의
+        var User = {
+            //  user컴포넌트에 라우팅연결할 하위 컴포넌트 영역 설정
+            template: `<div>
+                            user component
+                             
+                            <router-link to='/userProfile'>Profile</router-link>
+                            <router-link to='/userPost'>userPost</router-link>
+                            <router-view></router-view> 
+                        </div>
+            `
+        };
+
+        var UserProfile = {
+            template: '<p>User Profile 컴포넌트</p>'
+        };
+        var UserPost = {
+            template: '<p>User Post 컴포넌트</p>'
+        };
+
+        // 02. 사용할 Route 정의 
+        var routes = [{
+            path: '/user',
+            component: User,
+            // 하위 중첩 Route 등록
+            children: [{
+                    path: '/userProfile',
+                    component: UserProfile
+                },
+                {
+                    path: '/userPost',
+                    component: UserPost
+                },
+            ]
+        }];
+
+        // 03. 뷰 라우터 정의
+        var router = new VueRouter({
+            routes,
+            mode: 'history' // mode를 'history'로 하면서 해시값 삭제?
+        });
+
+        // 04. 뷰 인스턴스에 라우터 추가
+        var app = new Vue({
+            // router
+        }).$mount('#app');
+    </script>
+</body>
+
+</html>

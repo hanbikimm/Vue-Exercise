@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>뷰 라우터 예제</h1>
+        <p>
+            <!-- URL 값을 변경하는 태그 형식
+                 <router-link to='Url 값'></router-link> -->
+                 <router-link to='/main'>Main 컴포넌트로 이동</router-link>
+                 <router-link to='/login'>Login 컴포넌트로 이동</router-link>
+        </p>
+        <!-- URL 값에 따라 갱신되는 화면 영역 -->
+        <router-view></router-view>
+    </div>
+    <!-- Vue cdn & Vue Router, 순서 중요!!! -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+        // 컴포넌트 정의
+        var Main = {
+            template: `<div>main</div>`
+        };
+        var Login = {
+            template: '<div>login</div>'
+        };
+
+        // Url에 맞춰 표시할 컴포넌트 지정
+        var routes = [
+            {
+                path: '/main',
+                component: Main
+            },
+            {
+                path: '/login',
+                component: Login
+            }
+        ];
+
+        // 뷰 라우터 정의!
+        var router = new VueRouter({
+            routes,         // route 배열 객체 - {path:'to에 선언한 path',component:연결할 컴포넌트}
+            mode:'history'  // 해시 값 제거를 위한 모드 설정
+        });
+
+        new Vue({
+            router        // Vue 라우터, Vue인스턴스에 추가
+        }).$mount('#app'); // .$mount('선택자') : vue의 el과 같은 역할
+
+    </script>
+</body>
+
+</html>

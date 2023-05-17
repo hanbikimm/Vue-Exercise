@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on 키코드 수식어</title>
+    <style>
+        #list {
+            width: 400px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #list td, #lit th {
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        #list > thead > tr {
+            color: yellow;
+            background-color: purple;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="example" v-cloak>
+        <p>
+            이름 : <input type="text" v-model="name" v-on:keyup.enter="search" placeholder="두글자 이상을 입력하세요" />
+        </p>
+        <table id="list">
+            <thead>
+                <tr>
+                    <td>번호</td>
+                    <td>이름</td>
+                    <td>전화번호</td>
+                    <td>주소</td>
+                </tr>
+            </thead>
+            <tbody id="contacts">
+                <tr v-for="contact in contactlist">
+                    <td>{{ contact.no }}</td>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.tel }}</td>
+                    <td>{{ contact.address }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-show="isProcessing === true">조회중</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
+    <script text="text/javascript">
+        let vm = new Vue({ 
+            el : "#example",
+            data : {
+                name : "",
+                isProcessing : false,
+                contactlist : []
+            },
+            methods : {
+                search(e) {
+                    let val = e.target.value;
+
+                    if(val.length >= 2)
+                        this.fetchContacts();
+                    else
+                        this.contactlist = [];
+                },
+                fetchContacts() {
+                    this.contactlist = [];
+                    this.isProcessing = true;
+
+                    let url = "http://sample.bmaster.kro.kr/contacts_long/search/" + this.name;
+                    let vm = this;
+                    
+                    fetch(url)
+                        .then((response) => {
+                            return response.json()
+                        }).then((json) => {
+                            vm.contactlist = json;
+                            vm.isProcessing = false;
+                        }).catch((ex) => {
+                            console.log('parsing failed', ex);
+                            vm.contactlist = [];
+                            vm.isProcessing = false;
+                        });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

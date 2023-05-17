@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div id="demo">
+            <h1>Watch 속성</h1>
+            firstName :{{firstName}}<br>
+            lastName :{{lastName}}<br>
+            fullName : {{fullName}}<br>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar'
+        },
+        // setter 역할
+        watch: {
+            firstName: function (val, oldVal) {
+            console.log(val, oldVal);
+            return 'aaa'; //this.fullName = val + ' ' + this.lastName
+            },
+            lastName: function (val) {
+            this.fullName = this.firstName + ' ' + val
+            }
+        }
+        })
+    </script>
+</body>
+</html>

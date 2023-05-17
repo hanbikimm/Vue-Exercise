@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="simple">
+        <button v-bind:style="style1" @mouseover.stop="overEvent" @mouseout.stop="outEvent">테스트</button>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el : '#simple',
+            data : {
+                style1 : {
+                    backgroundColor : 'aqua',
+                    border : 'solid 1px gray',
+                    with : '100px',
+                    textAlign: 'center'
+                }
+            },
+            methods : {
+                overEvent(e) {
+                    this.style1.backgroundColor = "purple";
+                    this.style1.color = "yellow";
+                },
+                outEvent(e) {
+                    this.style1.backgroundColor = "aqua";
+                    this.style1.color = "black";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

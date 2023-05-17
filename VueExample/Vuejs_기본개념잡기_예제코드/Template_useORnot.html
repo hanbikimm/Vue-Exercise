@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app1"></div>
+    <hr>
+    <div id="app2">
+        <div>{{message}}</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // template 속성 사용 : 인스턴스 생성 전에 빈 영역이다가 mount시 바인딩
+        new Vue({
+            el:'#app1',
+            data(){
+                return{
+                    message:'app1에서 사용자가 정의하는 html코드 영역'
+                }
+            },
+            template:'<div>{{message}}</div>'
+        });
+        
+        // template 속성 미사용 : 인스턴스 생성되면 message 값을 치환해서 바인딩.
+        new Vue({
+            el:'#app2',
+            data(){
+                return{
+                    message:'app2에서 사용자가 정의한 메세지'
+                }
+            },
+        });
+    </script>
+</body>
+</html>

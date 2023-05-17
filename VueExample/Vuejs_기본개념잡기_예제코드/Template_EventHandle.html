@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click='checkTheDomEvent'> Dom Event Check 클릭 </button>
+        <hr>
+        <button v-on:click='clickTheButton'> 클릭 </button>
+        <hr>
+        <!--뷰 인스턴스의 data 접근가능 -->
+        <button v-on:click='receiveTheParams(num)'> 뷰 인스턴스 Data 확인 </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>    
+    new Vue({
+        el:'#app',
+        data:{
+            num:20
+        },
+        methods:{
+            // 메서드에 값을 전달하지 않아도, 인자를 정의하면 해당 Dom 요소의 이벤트 객체에 접근가능
+            checkTheDomEvent:function(event){
+                console.log(event);
+                console.log(this); // this는 뷰 인스턴스
+            },
+            clickTheButton: function(){
+                alert('clicked!');
+            },
+            // 파라미터 전달 가능
+            receiveTheParams:function(data){
+                alert('clicked! 내 data는 '+data+' 입니다.');
+            }
+        }
+    });
+    </script>
+</body>
+</html>

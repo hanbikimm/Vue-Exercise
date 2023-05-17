@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Vue.js!</title>
+</head>
+<body>
+    <div id="app">
+        <!-- Vue 보간법 mustach {{}} -->
+        {{hello}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // Vue Instance 생성
+        new Vue({
+            el:'#app',
+            data:{
+                hello:'Hello! Vue.js!!!'
+            }
+        });
+
+    </script>
+</body>
+</html>

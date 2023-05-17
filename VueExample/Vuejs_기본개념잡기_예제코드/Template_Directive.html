@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>템플릿 문법 : V 디렉티브</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <!-- v-text : {{}}와 같음 -->
+        <span v-text='message'></span>
+        <hr>
+    
+        <!-- v-html : html 태그 그대로 바인딩 -->
+        <div v-html="pMessage"></div>
+        <hr>
+
+        <!-- v-model : 데이터와 연결하여 양방향 바인딩 -->
+        <label>V-model 적용된 Input Box</label><br>
+        <input type="text" v-model="message">
+        <hr>
+
+        <!-- v-if ~ v-else : if문 사용과 동일 , 단 조건에 따라 태그 자체를 아예 바인딩하지 않거나 바인딩함. -->
+        <h1 v-if="value > 5">value가 5보다 큽니다.</h1>
+        <h1 v-else-if="value === 5">value가 5입니다.</h1>
+        <h1 v-else>value가 5보다 작습니다.</h1>
+
+        <!-- v-show : 조건에 따라 숨기거나 보이게함. v-if와 달리 태그 자체는 그리나, display:none으로 처리 -->
+        <h1 v-show="value === 5" :style="'color:red'">value가 5일 때, 나옵니다.</h1>
+        <hr>
+
+        <!-- v-pre : 기존의 pre와 동일, 랜더링 무시 -->
+        <h3 v-pre>{{messge}}를 넣어도 랜더링 안됩니다.</h3>
+
+        <!-- v-once : 데이터 값이 랜더링 초기에 한번만 바인딩되고 값 변경이 반영되지 않음 -->
+        <h4 v-once>초기 값 :{{value}}</h4>
+        <h4>현재 값 :{{value}}</h4>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+         new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue.js!',
+                pMessage :'<p>p태그로 만들어진 message!</p>',
+                value: 5
+            }
+        });
+    </script>
+</body>
+</html>

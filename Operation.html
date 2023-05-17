@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="inputs">
+            <select v-model="operation" @change="checkOperation()">
+                <option disabled value="">연산자를 선택하세요.</option>
+                <option v-for="(key, val) in operationList" :value="val">{{ key }}</option>
+            </select>
+            <br/>
+    
+            <input type="number" v-model="numA">
+            <span v-if="numA < 0">{{ checkNums }}</span><br/>
+
+            <input type="number" v-model="numB">
+            <span v-if="numB < 0">{{ checkNums }}</span><br/>
+    
+            <button @click="setResult()">계산하기</button>
+        </div>
+        
+        <div id="results">
+            <h2 v-show="result !== 0">{{ checkResult }}</h2>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var operationList = {
+            '+' : "더하기",
+            '-' : "빼기",
+            '*' : "곱하기",
+            '/' : "나누기",
+        };
+
+        var vue = new Vue({
+            el: "#app",
+            data: {
+                numA: 0,
+                numB: 0,
+                result: 0,
+                operation: '',
+                operationList
+            },
+
+            watch: {
+                numA: function(n){
+                    console.log("numA 변경!");
+                    this.numA = Number(this.numA);
+                },
+
+                numB: function(n){
+                    console.log("numB 변경!");
+                    this.numB = Number(this.numB);
+                }
+            },
+
+            computed: {
+                checkNums(){
+                    if(this.numA < 0 || this.numB < 0){
+                        return "숫자는 양수만 입력할 수 있습니다.";
+                    }
+                },
+
+                checkResult(){
+                    if(!isNaN(this.result)){
+                        if(Number.isInteger(this.result)){
+                            return this.result;
+                        }else{
+                            return this.result.toFixed(2);
+                        }
+                    }else{
+                        alert('결과값이 잘못나왔습니다. 다시 시도해주세요.');
+                    }
+                    
+                }
+            },
+            
+            methods: {
+                checkOperation(){
+                    console.log("operation: " + this.operation);
+                },
+
+                checkValidation(){
+                    var boolResult = true;
+                    if(this.operation === ''){
+                        alert("연산자를 선택해주세요.");
+                        boolResult = false;
+                    }else if(this.numA === 0 || this.numB === 0){
+                        alert("숫자를 입력해주세요");
+                        boolResult = false;
+                    }
+                    return boolResult;
+                },
+
+                setResult(){
+                    if(this.checkValidation()){
+                        switch(this.operation){
+                            case '+':
+                                this.result = this.numA + this.numB;
+                                break;
+                            case '-':
+                                this.result = this.numA - this.numB;
+                                break;
+                            case '*':
+                                this.result = this.numA * this.numB;
+                                break;
+                            case '/':
+                                this.result = this.numA / this.numB;
+                                break;
+                        }
+                    }
+                }
+
+            }
+
+        })
+    </script>
+</body>
+</html>

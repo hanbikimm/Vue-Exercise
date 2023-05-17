@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Life Cycle</title>
+</head>
+<body>
+    <div id="app">
+        {{hello}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // Vue Instance 생성
+        new Vue({
+            el:'#app',
+            data:{
+                hello:'Hello! Vue.js!!!'
+            },
+            beforeCreate:function(){
+                console.log('beforeCreate');
+            },
+            created:function(){
+                console.log('created');
+            },
+            mounted:function(){
+                console.log('mounted');
+                // this.hello ='Hi!'
+            },
+            updated:function(){
+                // 뷰 인슨턴스에서 데이터 변경이 일어나면 호출됨
+                console.log('updated');
+            },
+        });
+    </script>
+
+
+    
+</body>
+</html>

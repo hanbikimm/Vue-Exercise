@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        dkdkddk
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data(){
+                return{
+                    message:'사용자가 정의하는 html코드 영역'
+                }
+            },
+            template:'<div>{{message}}</div>'
+        })
+    </script>
+</body>
+</html>

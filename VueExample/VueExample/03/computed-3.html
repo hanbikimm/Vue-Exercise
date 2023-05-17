@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>computed</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        <input type="text" v-model="amount"><br/>
+        금액 : <span>{{ amount }}원</span>
+    </div>
+    <script type="text/javascript">
+        let vm = new Vue({
+            el : "#example",
+            data : {
+                amt : 1234567
+            },
+            computed : {
+                amount : {
+                    get : function() {
+                        let s = new String(""+this.amt);
+                        let result = "";
+                        let num = 0;
+
+                        for(let i=s.length-1;i>=0;i--) {
+                            result = s[i] + result;
+                            if(num%3 === 2 && i !== 0)
+                                result = "," + result;
+                            num++;
+                        }
+
+                        return result;
+                    },
+                    set : function(amt) {
+                        if(typeof(amt) === "string") {
+                            let result = parseInt(amt.replace(/,/g,""));
+                            
+                            if(isNaN(result))
+                                this.amt = 0;
+                            else
+                                this.amt = result;
+                        }
+                        else if(typeof(amt) === "number")
+                            this.amt = amt;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
